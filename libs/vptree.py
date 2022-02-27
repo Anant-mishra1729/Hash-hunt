@@ -1,6 +1,8 @@
 # Credits : RickardSjogren/vptree
 
 import numpy as np
+
+
 class VPTree:
 
     """ VP-Tree data structure for efficient nearest neighbor search.
@@ -50,14 +52,14 @@ class VPTree:
                 self.right_min = min(distance, self.right_min)
                 if distance > self.right_max:
                     self.right_max = distance
-                    right_points.insert(0, point) # put furthest first
+                    right_points.insert(0, point)  # put furthest first
                 else:
                     right_points.append(point)
             else:
                 self.left_min = min(distance, self.left_min)
                 if distance > self.left_max:
                     self.left_max = distance
-                    left_points.insert(0, point) # put furthest first
+                    left_points.insert(0, point)  # put furthest first
                 else:
                     left_points.append(point)
 
@@ -72,7 +74,7 @@ class VPTree:
 
     def get_nearest_neighbor(self, query):
         """ Get single nearest neighbor.
-        
+
         Parameters
         ----------
         query : Any
@@ -86,7 +88,7 @@ class VPTree:
 
     def get_n_nearest_neighbors(self, query, n_neighbors):
         """ Get `n_neighbors` nearest neigbors to `query`
-        
+
         Parameters
         ----------
         query : Any
