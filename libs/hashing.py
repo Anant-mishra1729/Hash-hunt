@@ -2,10 +2,7 @@ import numpy as np
 import cv2
 
 def hamming_dist(h1, h2):
-	return bin(int(h1) ^ int(h2)).count("1")
-
-def convert_hash(hash):
-	return int(np.array(hash,np.float64))
+	return bin(int(h1,16) ^ int(h2,16)).count("1")
 
 def dhash(img,size = 8):
 	resized = cv2.resize(img,(size + 1,size));
@@ -14,4 +11,4 @@ def dhash(img,size = 8):
 	for (i,v) in diff:
 		if v:
 			s += 2**i
-	return s;
+	return hex(s)

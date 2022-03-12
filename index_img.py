@@ -1,4 +1,4 @@
-from libs.hashing import dhash, hamming_dist, convert_hash
+from libs.hashing import dhash, hamming_dist
 from libs import vptree
 from os import walk, path
 import argparse
@@ -21,7 +21,7 @@ def generate_hash(imgPaths):
     for (index, imgPath) in enumerate(imgPaths,1):
         print("Working on image {}/{}".format(index, len(imgPaths)))
         img = cv2.imread(imgPath, cv2.IMREAD_GRAYSCALE)
-        h = convert_hash(dhash(img))
+        h = dhash(img)
         l = hashes.get(h, [])
         l.append(imgPath)
         hashes[h] = l
@@ -43,6 +43,7 @@ start = time.time()
 hashes = generate_hash(imgPaths)
 end = time.time()
 print("Time elapsed : {} seconds".format(end - start))
+print(hashes)
 
 # Generating VP Tree of keys .i.e hashvalues
 # It takes point (keys or hashvalues) and
