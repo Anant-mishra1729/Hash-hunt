@@ -18,8 +18,7 @@ def generate_hash(imgPaths):
     hashes = {}
     for (index, imgPath) in enumerate(imgPaths,1):
         print("Working on image {}/{}".format(index, len(imgPaths)))
-        img = cv2.imread(imgPath, cv2.IMREAD_GRAYSCALE)
-        h = dhash(img)
+        h = dhash(cv2.imread(imgPath, cv2.IMREAD_GRAYSCALE))
         l = hashes.get(h, [])
         l.append(imgPath)
         hashes[h] = l
@@ -54,4 +53,4 @@ if(len(hashes) != 0):
     with open(args["hashes"], "wb") as file:
         pickle.dump(hashes,file)
 else:
-    print("An error has occured!,file not generated")
+    print("Error occured!, file not generated")
