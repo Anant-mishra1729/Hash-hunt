@@ -1,3 +1,4 @@
+from ast import arg
 from libs.hashing import dhash
 import argparse
 import cv2
@@ -11,18 +12,22 @@ ap.add_argument("-a", "--hashes", default = "Resources\\hashes.pickle", help = "
 ap.add_argument("-p", "--dist", default = 10, type = int,help="Precision or hamming distance")
 args = vars(ap.parse_args())
 
-# Loading image and calculating its hash value
-queryimg = cv2.imread(args["image"])
-gray = cv2.cvtColor(queryimg,cv2.COLOR_BGR2GRAY)
-queryhash = dhash(gray)
 
-# Loading VPTree
-with open(args["vptree"],"rb") as file:
-    tree = pickle.load(file)
+try:
+    # Loading image and calculating its hash value
+    queryimg = cv2.imread(args["image"])
+    gray = cv2.cvtColor(queryimg,cv2.COLOR_BGR2GRAY)
+    queryhash = dhash(gray)
+    
+    # Loading VPTree
+    with open(args["vptree"],"rb") as file:
+        tree = pickle.load(file)
 
-# Loading Hashes
-with open(args["hashes"],"rb") as file:
-    hashes = pickle.load(file)
+    # Loading Hashes
+    with open(args["hashes"],"rb") as file:
+        hashes = pickle.load(file)
+except FileNotFoundError:
+    print("Can't find files {}, {}".format(args["vptree"],args["hashes"]))
 
 # Fetching related hashes from vptree
 start = time.time()

@@ -36,16 +36,22 @@ args = vars(ap.parse_args())
 # Retriving image paths
 imgPaths = getImagePaths(args["images"])
 
-# Generating dictionary of hash values
-hashes = generate_hash(imgPaths)
+if(len(imgPaths) != 0):
+    # Generating dictionary of hash values
+    hashes = generate_hash(imgPaths)
+else:
+    print("No images found at desired location!!!")
 
-# Creating vp tree for hashes and paths of images
-tree = vptree.VPTree(list(hashes.keys()), hamming_dist)
+if(len(hashes) != 0):
+    # Creating vp tree for hashes and paths of images
+    tree = vptree.VPTree(list(hashes.keys()), hamming_dist)
 
-# Storing tree in pickle file
-with open(args["tree"], "wb") as file:
-    pickle.dump(tree,file)
+    # Storing tree in pickle file
+    with open(args["tree"], "wb") as file:
+        pickle.dump(tree,file)
 
-# Storing hash values in pickle file
-with open(args["hashes"], "wb") as file:
-    pickle.dump(hashes,file)
+    # Storing hash values in pickle file
+    with open(args["hashes"], "wb") as file:
+        pickle.dump(hashes,file)
+else:
+    print("An error has occured!,file not generated")
