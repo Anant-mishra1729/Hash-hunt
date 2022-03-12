@@ -4,7 +4,7 @@ import cv2
 import pickle
 import time
 
-dist = 10
+dist = 15
 
 ap = argparse.ArgumentParser()
 ap.add_argument("-i", "--image", required = True, help = "Image to search")

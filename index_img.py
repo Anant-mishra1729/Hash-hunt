@@ -31,8 +31,8 @@ def generate_hash(imgPaths):
 # Parsing arguments
 ap = argparse.ArgumentParser()
 ap.add_argument("-i", "--images", required=True, help="Path to input dir of images")
-ap.add_argument("-t", "--tree", default="vptree.pickle" ,help="Path to vptree file")
-ap.add_argument("-a", "--hashes",default="hashes.pickle" ,help="Path to generated image hash file")
+ap.add_argument("-t", "--tree", default="Resources\\vptree.pickle" ,help="Path to vptree file")
+ap.add_argument("-a", "--hashes",default="Resources\\hashes.pickle" ,help="Path to generated image hash file")
 args = vars(ap.parse_args())
 
 # Retriving image paths
