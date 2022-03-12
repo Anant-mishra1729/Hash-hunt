@@ -4,7 +4,7 @@ import cv2
 import pickle
 import time
 
-dist = 15
+dist = 10
 
 ap = argparse.ArgumentParser()
 ap.add_argument("-i", "--image", required = True, help = "Image to search")
@@ -33,13 +33,11 @@ res = tree.get_all_in_range(queryhash, dist)
 end = time.time()
 
 print("{} results fetched in {} seconds".format(len(res),end-start))
-print(res)
 
 # Image output
 cv2.imshow("Input",queryimg)
 for (index,hashval) in res:
     for respath in hashes[hashval]:
         resimg = cv2.imread(respath)
-        print(resimg)
         cv2.imshow("Output",resimg)
         cv2.waitKey(0)
