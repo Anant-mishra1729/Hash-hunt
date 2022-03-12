@@ -4,17 +4,15 @@ from os import walk, path
 import argparse
 import pickle
 import cv2
-import time
 
 def getImagePaths(imgPath):
     imgPaths = []
-    exts = {".jpeg", ".jpg", ".jpe", ".png", ".bmp", ".tiff", ".tif"}
+    exts = [".jpeg", ".jpg", ".jpe", ".png", ".bmp", ".tiff", ".tif"]
     for (root, dirs, files) in walk(imgPath):
         for f in files:
             if path.splitext(f)[1] in exts:
                 imgPaths.append(path.join(root, f))
     return imgPaths
-
 
 def generate_hash(imgPaths):
     hashes = {}
@@ -38,25 +36,16 @@ args = vars(ap.parse_args())
 # Retriving image paths
 imgPaths = getImagePaths(args["images"])
 
-# Creating dictionary of hash values
-start = time.time()
+# Generating dictionary of hash values
 hashes = generate_hash(imgPaths)
-end = time.time()
-print("Time elapsed : {} seconds".format(end - start))
-print(hashes)
 
-# Generating VP Tree of keys .i.e hashvalues
-# It takes point (keys or hashvalues) and
-# A function on basis of which it calculates distance between point
-# In our case it is hamming distance
+# Creating vp tree for hashes and paths of images
 tree = vptree.VPTree(list(hashes.keys()), hamming_dist)
 
 # Storing tree in pickle file
-f = open(args["tree"], "wb")
-f.write(pickle.dumps(tree))
-f.close()
+with open(args["tree"], "wb") as file:
+    pickle.dump(tree,file)
 
 # Storing hash values in pickle file
-f = open(args["hashes"], "wb")
-f.write(pickle.dumps(hashes))
-f.close()
+with open(args["hashes"], "wb") as file:
+    pickle.dump(hashes,file)

@@ -4,12 +4,11 @@ import cv2
 import pickle
 import time
 
-dist = 15
-
 ap = argparse.ArgumentParser()
 ap.add_argument("-i", "--image", required = True, help = "Image to search")
 ap.add_argument("-t", "--vptree", default = "Resources\\vptree.pickle", help = "Path to generated VPtree")
 ap.add_argument("-a", "--hashes", default = "Resources\\hashes.pickle", help = "Path of generated hashes")
+ap.add_argument("-p", "--dist", default = 10, type = int,help="Precision or hamming distance")
 args = vars(ap.parse_args())
 
 # Loading image and calculating its hash value
@@ -18,18 +17,16 @@ gray = cv2.cvtColor(queryimg,cv2.COLOR_BGR2GRAY)
 queryhash = dhash(gray)
 
 # Loading VPTree
-f = open(args["vptree"],"rb")
-tree = pickle.load(f)
-f.close()
+with open(args["vptree"],"rb") as file:
+    tree = pickle.load(file)
 
 # Loading Hashes
-f = open(args["hashes"],"rb")
-hashes = pickle.load(f)
-f.close()
+with open(args["hashes"],"rb") as file:
+    hashes = pickle.load(file)
 
 # Fetching related hashes from vptree
 start = time.time()
-res = tree.get_all_in_range(queryhash, dist)
+res = tree.get_all_in_range(queryhash, args["dist"])
 end = time.time()
 
 print("{} results fetched in {} seconds".format(len(res),end-start))

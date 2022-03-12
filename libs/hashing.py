@@ -1,4 +1,3 @@
-import numpy as np
 import cv2
 
 def hamming_dist(h1, h2):
