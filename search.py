@@ -11,7 +11,7 @@ def fetchResults(tree,hashes,qImage,prec):
     start = time()
     res = tree.get_all_in_range(queryhash, prec)
     end = time()
-    print("{} fetched in {} seconds".format(len(res),end-start))
+    print("{} results fetched in {} seconds".format(len(res),end-start))
 
     # Image output
     cv2.imshow("Input",qImage)
