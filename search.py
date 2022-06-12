@@ -19,13 +19,14 @@ def fetchResults(tree,hashes,qImage,prec):
         for respath in hashes[hashval]:
             resimg = cv2.imread(respath)
             cv2.imshow("Output",resimg)
-            cv2.waitKey(0)
+            if cv2.waitKey(1) & 0xff == ord('q'):
+                break
 
 
 ap = argparse.ArgumentParser()
 ap.add_argument("-i", "--image", required = True, help = "Image to search")
-ap.add_argument("-t", "--vptree", default = "Resources\\vptree.pickle", help = "Path to generated VPtree")
-ap.add_argument("-a", "--hashes", default = "Resources\\hashes.pickle", help = "Path of generated hashes")
+ap.add_argument("-t", "--vptree", default = "Resources/Indexed/vptree.pickle", help = "Path to generated VPtree")
+ap.add_argument("-a", "--hashes", default = "Resources/Indexed/hashes.pickle", help = "Path of generated hashes")
 ap.add_argument("-p", "--dist", default = 10, type = int,help="Precision or hamming distance")
 args = vars(ap.parse_args())
 
