@@ -19,7 +19,7 @@ def fetchResults(tree,hashes,qImage,prec):
         for respath in hashes[hashval]:
             resimg = cv2.imread(respath)
             cv2.imshow("Output",resimg)
-            if cv2.waitKey(1) & 0xff == ord('q'):
+            if cv2.waitKey(0) & 0xff == ord('q'):
                 break
 
 
