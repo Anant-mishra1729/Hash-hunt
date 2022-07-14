@@ -4,23 +4,6 @@ import numpy as np
 
 
 class VPTree:
-
-    """ VP-Tree data structure for efficient nearest neighbor search.
-    The VP-tree is a data structure for efficient nearest neighbor
-    searching and finds the nearest neighbor in O(log n)
-    complexity given a tree constructed of n data points. Construction
-    complexity is O(n log n).
-    Parameters
-    ----------
-    points : Iterable
-        Construction points.
-    dist_fn : Callable
-        Function taking to point instances as arguments and returning
-        the distance between them.
-    leaf_size : int
-        Minimum number of points in leaves (IGNORED).
-    """
-
     def __init__(self, points, dist_fn):
         self.left = None
         self.right = None
@@ -31,7 +14,7 @@ class VPTree:
         self.dist_fn = dist_fn
 
         if not len(points):
-            raise ValueError('Points can not be empty.')
+            raise ValueError("Points can not be empty.")
 
         # Vantage point is point furthest from parent vp.
         vp_i = 0
@@ -73,7 +56,7 @@ class VPTree:
         return (self.left is None) and (self.right is None)
 
     def get_nearest_neighbor(self, query):
-        """ Get single nearest neighbor.
+        """Get single nearest neighbor.
 
         Parameters
         ----------
@@ -87,7 +70,7 @@ class VPTree:
         return self.get_n_nearest_neighbors(query, n_neighbors=1)[0]
 
     def get_n_nearest_neighbors(self, query, n_neighbors):
-        """ Get `n_neighbors` nearest neigbors to `query`
+        """Get `n_neighbors` nearest neigbors to `query`
 
         Parameters
         ----------
@@ -101,7 +84,7 @@ class VPTree:
             List of `n_neighbors` nearest neighbors.
         """
         if not isinstance(n_neighbors, int) or n_neighbors < 1:
-            raise ValueError('n_neighbors must be strictly positive integer')
+            raise ValueError("n_neighbors must be strictly positive integer")
         neighbors = _AutoSortingList(max_size=n_neighbors)
         nodes_to_visit = [(self, 0)]
 
@@ -123,21 +106,29 @@ class VPTree:
             if node.left_min <= d <= node.left_max:
                 nodes_to_visit.insert(0, (node.left, 0))
             elif node.left_min - furthest_d <= d <= node.left_max + furthest_d:
-                nodes_to_visit.append((node.left,
-                                       node.left_min - d if d < node.left_min
-                                       else d - node.left_max))
+                nodes_to_visit.append(
+                    (
+                        node.left,
+                        node.left_min - d if d < node.left_min else d - node.left_max,
+                    )
+                )
 
             if node.right_min <= d <= node.right_max:
                 nodes_to_visit.insert(0, (node.right, 0))
             elif node.right_min - furthest_d <= d <= node.right_max + furthest_d:
-                nodes_to_visit.append((node.right,
-                                       node.right_min - d if d < node.right_min
-                                       else d - node.right_max))
+                nodes_to_visit.append(
+                    (
+                        node.right,
+                        node.right_min - d
+                        if d < node.right_min
+                        else d - node.right_max,
+                    )
+                )
 
         return list(neighbors)
 
     def get_all_in_range(self, query, max_distance):
-        """ Find all neighbours within `max_distance`.
+        """Find all neighbours within `max_distance`.
         Parameters
         ----------
         query : Any
@@ -170,23 +161,31 @@ class VPTree:
             if node.left_min <= d <= node.left_max:
                 nodes_to_visit.insert(0, (node.left, 0))
             elif node.left_min - max_distance <= d <= node.left_max + max_distance:
-                nodes_to_visit.append((node.left,
-                                       node.left_min - d if d < node.left_min
-                                       else d - node.left_max))
+                nodes_to_visit.append(
+                    (
+                        node.left,
+                        node.left_min - d if d < node.left_min else d - node.left_max,
+                    )
+                )
 
             if node.right_min <= d <= node.right_max:
                 nodes_to_visit.insert(0, (node.right, 0))
             elif node.right_min - max_distance <= d <= node.right_max + max_distance:
-                nodes_to_visit.append((node.right,
-                                       node.right_min - d if d < node.right_min
-                                       else d - node.right_max))
+                nodes_to_visit.append(
+                    (
+                        node.right,
+                        node.right_min - d
+                        if d < node.right_min
+                        else d - node.right_max,
+                    )
+                )
 
         return neighbors
 
 
 class _AutoSortingList(list):
 
-    """ Simple auto-sorting list.
+    """Simple auto-sorting list.
     Inefficient for large sizes since the queue is sorted at
     each push.
     Parameters
@@ -200,7 +199,7 @@ class _AutoSortingList(list):
         self.max_size = max_size
 
     def append(self, item):
-        """ Append `item` and sort.
+        """Append `item` and sort.
         Parameters
         ----------
         item : Any
