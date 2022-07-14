@@ -14,12 +14,16 @@ def fetchResults(tree, hashes, qImage, prec):
     end = time()
     print(f"{len(res)} results fetched in {end - start} seconds")
 
+    count = 0
+    res = res[:5]
     # Image output
     cv2.imshow("Input", qImage)
     for (_, hashval) in res:
+        print(hashval)
         for respath in hashes[hashval]:
             resimg = cv2.imread(respath)
             cv2.imshow("Output", resimg)
+            count += 1
             if cv2.waitKey(0) & 0xFF == ord("q"):
                 break
 

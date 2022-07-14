@@ -5,20 +5,18 @@ import argparse
 import pickle
 import cv2
 
-
 def getImagePaths(imgPath):
     imgPaths = []
     exts = [".jpeg", ".jpg", ".jpe", ".png", ".bmp", ".tiff", ".tif"]
-    for (root, dirs, files) in walk(imgPath):
+    for (root, _, files) in walk(imgPath):
         for f in files:
             if path.splitext(f)[1] in exts:
                 imgPaths.append(path.join(root, f))
     return imgPaths
 
-
 def generate_hash(imgPaths):
     hashes = {}
-    for (index, imgPath) in enumerate(imgPaths, 1):
+    for (index, imgPath) in enumerate(imgPaths,1):
         print("Working on image {}/{}".format(index, len(imgPaths)))
         h = dhash(cv2.imread(imgPath, cv2.IMREAD_GRAYSCALE))
         l = hashes.get(h, [])
@@ -30,18 +28,8 @@ def generate_hash(imgPaths):
 # Parsing arguments
 ap = argparse.ArgumentParser()
 ap.add_argument("-i", "--images", required=True, help="Path to input dir of images")
-ap.add_argument(
-    "-t",
-    "--tree",
-    default="Resources/Indexed/vptree.pickle",
-    help="Path to vptree file",
-)
-ap.add_argument(
-    "-a",
-    "--hashes",
-    default="Resources/Indexed/hashes.pickle",
-    help="Path to generated image hash file",
-)
+ap.add_argument("-t", "--tree", default="Resources/Indexed/vptree.pickle" ,help="Path to vptree file")
+ap.add_argument("-a", "--hashes",default="Resources/Indexed/hashes.pickle" ,help="Path to generated image hash file")
 args = vars(ap.parse_args())
 
 # Retriving image paths
@@ -62,11 +50,11 @@ tree = vptree.VPTree(list(hashes.keys()), hamming_dist)
 try:
     # Storing tree in pickle file
     with open(args["tree"], "wb") as file:
-        pickle.dump(tree, file)
+        pickle.dump(tree,file)
 
     # Storing hash values in pickle file
     with open(args["hashes"], "wb") as file:
-        pickle.dump(hashes, file)
+        pickle.dump(hashes,file)
 
 except FileNotFoundError:
     print("Wrong file path!")
