@@ -13,3 +13,8 @@ def dhash(img, size=8):
     width = -(-len(binstr) // 4)
     return "{:0>{width}x}".format(int(binstr, 2), width=width)
 
+if __name__ == "__main__":
+    import cv2
+    img = cv2.imread("test.jpg")
+    h = dhash(cv2.cvtColor(img,cv2.COLOR_BGR2GRAY))
+    print(h)

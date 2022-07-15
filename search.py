@@ -30,7 +30,7 @@ ap = argparse.ArgumentParser()
 ap.add_argument("-i", "--image", required=True, help="Image to search")
 ap.add_argument(
     "-t",
-    "--vptree",
+    "--tree",
     default="Resources/Indexed/vptree.pickle",
     help="Path to generated VPtree",
 )
@@ -38,7 +38,7 @@ ap.add_argument(
     "-a",
     "--hashes",
     default="Resources/Indexed/hashes.pickle",
-    help="Path of generated hashes",
+    help="Path of generated hash file",
 )
 ap.add_argument(
     "-p", "--dist", default=10, type=int, help="Precision or hamming distance"
@@ -53,7 +53,7 @@ except cv2.error as error:
 
 try:
     # Loading VPTree
-    with open(args["vptree"], "rb") as file:
+    with open(args["tree"], "rb") as file:
         tree = pickle.load(file)
 
     # Loading Hashes
