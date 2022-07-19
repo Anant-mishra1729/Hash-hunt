@@ -1,12 +1,12 @@
-from libs.hashing import dhash
+from libs.hashing import dhash, phash
 import argparse
 import cv2
 import pickle
 from time import time
 
 
-def fetchResults(tree, hashes, qImage, prec):
-    queryhash = dhash(cv2.cvtColor(qImage, cv2.COLOR_BGR2GRAY))
+def fetchResults(tree, hashes, qImage, prec, algo = dhash):
+    queryhash = algo(cv2.cvtColor(qImage, cv2.COLOR_BGR2GRAY))
 
     # Fetching related hashes from vptree
     start = time()
@@ -17,7 +17,7 @@ def fetchResults(tree, hashes, qImage, prec):
     # Image output
     if len(res):
         cv2.imshow("Input", qImage)
-        for (dist, hashval) in res[:5]:  # Limiting output to 5 related images
+        for (dist, hashval) in sorted(res[:prec]):  # Limiting output to prec images
             print("Hamming distance : ", dist)
             for respath in hashes[hashval]:
                 resimg = cv2.imread(respath)
@@ -35,13 +35,19 @@ ap.add_argument(
     help="Path to generated VPtree",
 )
 ap.add_argument(
-    "-a",
+    "-b",
     "--hashes",
     default="Resources/Indexed/hashes.pickle",
     help="Path of generated hash file",
 )
 ap.add_argument(
     "-p", "--dist", default=10, type=int, help="Precision or hamming distance"
+)
+ap.add_argument(
+    "-a",
+    "--algo",
+    default="dhash",
+    help="Algorithm for image hashing",
 )
 args = vars(ap.parse_args())
 
@@ -59,8 +65,12 @@ try:
     # Loading Hashes
     with open(args["hashes"], "rb") as file:
         hashes = pickle.load(file)
+    if args["algo"] == "dhash":
+        algo = dhash
+    elif args["algo"] == "phash":
+        algo = phash
 
-    fetchResults(tree, hashes, qImage, args["dist"])
+    fetchResults(tree, hashes, qImage, args["dist"],algo)
 
 except FileNotFoundError:
     print("Can't find required files, generate them using index_img.py")

@@ -1,4 +1,4 @@
-from libs.hashing import dhash, hamming_dist
+from libs.hashing import dhash,phash, hamming_dist
 from libs import vptree
 from libs.progress import progress
 from os import walk, path
@@ -17,13 +17,14 @@ def getImagePaths(imgPath):
     return imgPaths
 
 
-def generate_hash(imgPaths):
+def generate_hash(imgPaths, algo = dhash):
     hashes = {}
     collision = 0
     total = len(imgPaths)
     print("Generating hash for images, images will be listed below if collision occurs")
+
     for (index, imgPath) in enumerate(imgPaths, 1):
-        h = dhash(cv2.imread(imgPath, cv2.IMREAD_GRAYSCALE))
+        h = algo(cv2.imread(imgPath, cv2.IMREAD_GRAYSCALE))
         l = hashes.get(h, [])
         l.append(imgPath)
         if len(l) > 1:
@@ -45,10 +46,16 @@ ap.add_argument(
     help="Path to vptree file",
 )
 ap.add_argument(
-    "-a",
+    "-b",
     "--hashes",
     default="Resources/Indexed/hashes.pickle",
     help="Path to generated image hash file",
+)
+ap.add_argument(
+    "-a",
+    "--algo",
+    default="dhash",
+    help="Algorithm for image hashing",
 )
 args = vars(ap.parse_args())
 
@@ -59,7 +66,12 @@ if not len(imgPaths):
     raise FileNotFoundError("No images found at desired location!")
 
 # Generating dictionary of hash values
-hashes, collision = generate_hash(imgPaths)
+if args["algo"] == "dhash":
+    algo = dhash
+elif args["algo"] == "phash":
+    algo = phash
+hashes, collision = generate_hash(imgPaths,algo)
+
 
 if len(hashes) != len(imgPaths) - collision:
     raise ValueError("Some error has occured!")
