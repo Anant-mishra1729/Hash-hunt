@@ -16,10 +16,11 @@ Image hashing is the process of using an algorithm (here dhash) to assign a uniq
 
 ### Generated hash using dhash algorithm: 784806da92483094
 
-## Dhash 
+## Dhash algorithm
 * One of the fastest image hashing algorithm.
 * Very less false positives.
 
+<br />
 <img src = "Resources/Dhash.svg">
 
 <br />
