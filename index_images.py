@@ -1,4 +1,4 @@
-from libs.hashing import dhash,phash, hamming_dist
+from libs.hashing import ahash, dhash,phash, hamming_dist
 from libs import vptree
 from libs.progress import progress
 from os import walk, path
@@ -66,10 +66,12 @@ if not len(imgPaths):
     raise FileNotFoundError("No images found at desired location!")
 
 # Generating dictionary of hash values
-if args["algo"] == "dhash":
-    algo = dhash
-elif args["algo"] == "phash":
+if args["algo"] == "phash":
     algo = phash
+elif args["algo"] == "ahash":
+    algo = ahash
+else:
+    algo = dhash
 hashes, collision = generate_hash(imgPaths,algo)
 
 

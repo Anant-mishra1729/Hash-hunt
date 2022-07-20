@@ -1,4 +1,4 @@
-from libs.hashing import dhash, phash
+from libs.hashing import dhash, phash, ahash
 import argparse
 import cv2
 import pickle
@@ -65,10 +65,12 @@ try:
     # Loading Hashes
     with open(args["hashes"], "rb") as file:
         hashes = pickle.load(file)
-    if args["algo"] == "dhash":
-        algo = dhash
-    elif args["algo"] == "phash":
+    if args["algo"] == "phash":
         algo = phash
+    elif args["algo"] == "ahash":
+        algo = ahash
+    else:
+        algo = dhash
 
     fetchResults(tree, hashes, qImage, args["dist"],algo)
 

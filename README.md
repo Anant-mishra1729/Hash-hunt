@@ -59,7 +59,10 @@ python index_images.py
 
 --tree or -t : Path to vptree file
 
---hashes or -a : Path to generated image hash file
+--hashes or -b : Path to generated image hash file
+
+--algo or -a : Algorithm to use phash, dhash or ahash
+
 ```
 
 * For searching an image execute
@@ -71,6 +74,8 @@ python search.py
 --tree or -t : Path to generated VPtree
 
 --hashes or -a : Path of generated hash file
+
+--algo or -a : Algorithm to use phash, dhash or ahash
 ```
 
 ## Results
