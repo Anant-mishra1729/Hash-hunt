@@ -2,8 +2,9 @@
 
 Reverse image searching engine based on Dhash image hashing technique.
 
-This dhash algorithm  is based on 
-<a href="https://www.hackerfactor.com/blog/?/archives/529-Kind-of-Like-That.html">Kind of like that</a> by Dr. Neal Krawetzy.
+Image hashing algorithms are based on 
+<a href="https://www.hackerfactor.com/blog/?/archives/529-Kind-of-Like-That.html">Kind of like that</a> and 
+<a href="https://hackerfactor.com/blog/index.php%3F/archives/432-Looks-Like-It.html">Looks Like It</a> by Dr. Neal Krawetzy.
 
 # Description
 
@@ -106,4 +107,5 @@ Images are taken from <a href = "https://www.kaggle.com/datasets/erennik/places"
 This project is licensed under the MIT License - see the LICENSE.md file for details
 
 ## Acknowledgments
-<a href="https://www.hackerfactor.com/blog/?/archives/529-Kind-of-Like-That.html">Kind of like that</a> by Dr. Neal Krawetzy.
+<a href="https://www.hackerfactor.com/blog/?/archives/529-Kind-of-Like-That.html">Kind of like that</a> and 
+<a href="https://hackerfactor.com/blog/index.php%3F/archives/432-Looks-Like-It.html">Looks Like It</a> by Dr. Neal Krawetzy.
