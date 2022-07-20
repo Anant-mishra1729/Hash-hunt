@@ -34,7 +34,7 @@ Image hashing is the process of using an algorithm (here dhash) to assign a uniq
 
 * Hash value of input images is calculated using dhash algorithm.
 * This hash value and it's corresponding image is stored in database.
-* Then **VPTree** is used to store hashvalues of images on the based of hamming distance between them.
+* **VPTree** or **KD-Tree** can be used to store hashvalues of images on the based of hamming distance between them.
 * On searching particular image it's hash value is calculated which is then passed to VPTree, it finds related images based on the hamming distance between calculated hash and stored hash values.
 
 ## Getting Started
