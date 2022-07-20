@@ -16,7 +16,19 @@ Image hashing is the process of using an algorithm (here dhash) to assign a uniq
 
 ### Generated hash using dhash algorithm: 784806da92483094
 
+## Ahash algorithm 
+* Simplest of all image hashing algorithms
+* More false positives compared to phash and ahash
+
+**Working**
+* Convert image to **grayscale** and resize to **8x8** pixels.
+* Compute mean of image array.
+* If P[x] > mean : P[x] = 1 else P[x] = 0
+* Compute hash
+
 ## Phash algorithm
+* Very few false positives
+* High computational time
 
 <br />
 <img src = "Resources/Phash.svg">
@@ -24,6 +36,8 @@ Image hashing is the process of using an algorithm (here dhash) to assign a uniq
 <br />
 
 ## Dhash algorithm
+* Few false positives, more than phash
+* Less computational time
 
 <br />
 <img src = "Resources/Dhash.svg">
