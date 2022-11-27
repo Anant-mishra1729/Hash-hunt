@@ -1,6 +1,6 @@
 # Hash-hunt
 
-Reverse image searching engine based on Dhash image hashing technique.
+Reverse image searching engine based on Perpetual image hashing technique.
 
 Image hashing algorithms are based on 
 <a href="https://www.hackerfactor.com/blog/?/archives/529-Kind-of-Like-That.html">Kind of like that</a> and 
