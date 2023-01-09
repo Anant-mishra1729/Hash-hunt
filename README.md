@@ -9,7 +9,7 @@ Image hashing algorithms are based on
 # Description
 
 ## What is Image hashing ?
-Image hashing is the process of using an algorithm (here dhash) to assign a unique hash value to an image.
+Image hashing is the process of using an hashing algorithm to assign a unique hash value to an image.
 
 ### Test Image
 
