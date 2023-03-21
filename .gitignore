@@ -2,3 +2,7 @@ libs/__pycache__
 Resources/Test
 Resources/Images
 Resources/pokemon
+.gitignore
+places/
+*.pickle
+__pycache__
