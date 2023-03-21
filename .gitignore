@@ -1,8 +1,7 @@
-libs/__pycache__
-Resources/Test
-Resources/Images
-Resources/pokemon
 .gitignore
+__pycache__/
+libs/__pycache__/
+Resources/Indexed/*.pickle
+Resources/test/
 places/
 *.pickle
-__pycache__
