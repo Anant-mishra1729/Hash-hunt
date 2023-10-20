@@ -8,8 +8,8 @@ Image hashing algorithms are based on
 
 # Description
 
-## What is Image hashing ?
-Image hashing is the process of using an hashing algorithm to assign a unique hash value to an image.
+## What is Image hashing?
+Image hashing is the process of using a hashing algorithm to assign a unique hash value to an image.
 
 ### Test Image
 
@@ -23,7 +23,7 @@ Image hashing is the process of using an hashing algorithm to assign a unique ha
 
 **Working**
 * Convert image to **grayscale** and resize to **8x8** pixels.
-* Compute mean of image array.
+* Compute the mean of the image array.
 * If P[x] > mean : P[x] = 1 else P[x] = 0
 * Compute hash
 
@@ -45,12 +45,12 @@ Image hashing is the process of using an hashing algorithm to assign a unique ha
 
 <br />
 
-## How Image hashing works with fast search on Images ?
+## How does Image hashing work with the fast search on Images?
 
-* Hash value of input images is calculated using (Phash, Dhash, Ahash) algorithm.
-* This hash value and it's corresponding image is stored in database.
-* **VPTree** or **KD-Tree** can be used to store hashvalues of images on the based of hamming distance between them.
-* On searching particular image it's hash value is calculated which is then passed to KD-Tree/VP-Tree, it finds related images based on the hamming distance between calculated hash and stored hash values.
+* The Hash value of input images is calculated using (Phash, Dhash, Ahash) algorithm.
+* This hash value and its corresponding image are stored in a database.
+* **VPTree** or **KD-Tree** can be used to store hash values of images on the based hamming distance between them.
+* On searching a particular image its hash value is calculated which is then passed to KD-Tree/VP-Tree, it finds related images based on the hamming distance between calculated hash and stored hash values.
 
 ## Getting Started
 
@@ -70,20 +70,20 @@ git clone https://github.com/Anant-mishra1729/Hash-hunt.git
 ```
 python index_images.py 
 
---images or -i : Path to source directory of images to index
+--images or -i: Path to the source directory of images to index
 
---dataset or -d : Path to generated index file
+--dataset or -d: Path to generated index file
 
---algo or -a : Algorithm to use phash, dhash or ahash
+--algo or -a: Algorithm to use phash, dhash or ahash
 ```
 
 * For searching an image execute
 ```
 python search.py 
 
---image or -i : Image to search
+--image or -i: Image to search
 
---dataset or -d : Path to generated index file
+--dataset or -d: Path to generated index file
 ```
 
 ## Results
